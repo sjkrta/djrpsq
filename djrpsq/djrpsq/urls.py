@@ -15,15 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.shortcuts import render
-from django.urls import path
-
-# Define a view function
-def home(request):
-    return render(request, "index.html")
+from django.urls import path, re_path
+from django.views.generic import TemplateView
 
 urlpatterns = [
     # Map the root URL to the hello view function
-    path('', home, name="hello"),
+    path('api/', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
 ]
